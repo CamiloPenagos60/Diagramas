@@ -1,0 +1,53 @@
+@startuml
+class Usuario {
+    - nombre: String
+    - id: Int
+    + verReservas(): List<Reserva>
+    + administrarReservas(): void
+}
+
+class Reserva {
+    - id: Int
+    - fechaInicio: Date
+    - fechaFin: Date
+    - numeroHabitaciones: Int
+    - serviciosAdicionales: List<Servicio>
+    - factura: Factura
+    + getId(): Int
+    + getFechaInicio(): Date
+    + getFechaFin(): Date
+    + getNumeroHabitaciones(): Int
+    + setNumeroHabitaciones(numeroHabitaciones: Int): void
+    + getServiciosAdicionales(): List<Servicio>
+    + agregarServicio(servicio: Servicio): void
+    + quitarServicio(servicio: Servicio): void
+    + cancelarReserva(): void
+}
+
+class Servicio {
+    - nombre: String
+    - costo: Double
+    + getNombre(): String
+    + getCosto(): Double
+}
+
+class Factura {
+    - id: Int
+    - detalle: String
+    + getId(): Int
+    + getDetalle(): String
+}
+
+class Recordatorio {
+    - fechaEnvio: Date
+    - contenido: String
+    + getFechaEnvio(): Date
+    + getContenido(): String
+}
+
+Usuario "1" *-- "0..*" Reserva : tiene
+Reserva "1" *-- "0..*" Servicio : tiene
+Reserva "1" -- "1" Factura : genera
+Reserva "1" -- "1" Recordatorio : envía
+
+@enduml
